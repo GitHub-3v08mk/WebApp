@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment-webapp
+  namespace: user-workloads
   labels:
     app: webapp
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
         - name: container-webapp
-          image: containerregistry3v08mk.azurecr.io/webapp:<container_image_tag_wildcard>
+          image: <azure_container_registry_wildcard>.azurecr.io/webapp:<container_image_tag_wildcard>
           ports:
             - name: http
               containerPort: 80
@@ -28,11 +29,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: service-webapp
+  namespace: user-workloads
   labels:
     app: webapp
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.255.0.3
+  loadBalancerIP: 10.2.0.2
   selector:
     app: webapp
   ports:
