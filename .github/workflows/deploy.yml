@@ -30,7 +30,7 @@ jobs:
         sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/kubernetes.yml
     
     - name: Kubernetes Deployment
-      uses: Azure/k8s-deploy@4.9
+      uses: Azure/k8s-deploy@v4.9
       with:
         action: deploy
         manifests: Manifests/kubernetes.yml
