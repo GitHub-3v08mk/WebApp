@@ -19,5 +19,5 @@ RUN apt-get update && \
 
 WORKDIR /App
 COPY --from=build /App/out .
-EXPOSE 80
+EXPOSE 8080
 ENTRYPOINT ["dotnet", "WebApp.dll"]
