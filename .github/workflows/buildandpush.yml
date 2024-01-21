@@ -30,4 +30,4 @@ jobs:
       run: dotnet test --no-build --verbosity normal
 
     - name: Login to Azure
-      run: az login --service-principal --username ${{ secrets.AZURE_CREDENTIALS_APPID }} --password ${{ secrets.AZURE_CREDENTIALS_PASSWORD }} --tenant ${{ secrets.AZURE_CREDENTIALS_TENANT }}
+      run: az login --service-principal --username ${{ secrets.AZURE_SERVICE_PRINCIPAL }} --password ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
