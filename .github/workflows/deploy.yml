@@ -27,7 +27,8 @@ jobs:
     - name: Kubernetes YAML File Update
       run: |
         sed -i 's/<container_image_tag_wildcard>/${{ steps.get_tag.outputs.image_tag }}/' Manifests/kubernetes.yml &&
-        sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/kubernetes.yml
+        sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/kubernetes.yml &&
+        cat Manifests/kubernetes.yml
     
     - name: Kubernetes Deployment
       uses: Azure/k8s-deploy@v4.9
