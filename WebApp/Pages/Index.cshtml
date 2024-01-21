@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+@using System;
+@using System.IO;
+@using Azure.Identity;
+@using Azure.Security.KeyVault.Secrets;
+@{
+
+    ViewData["Title"] = "Home page";
+/*
+    //Get Environment Variables
+    string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
+
+    //Log to Volume
+    String outputVolumeMount = "Default Message";
+    String line = $"{DateTime.Now} - WebApp started successfully in {hostingService}";
+    try
+    {
+
+        string filePath = "/data/logs/logfile-webapp.txt";
+        if (!System.IO.File.Exists(filePath)) { using (FileStream fs = System.IO.File.Create(filePath)) { } }
+        System.IO.File.AppendAllText(filePath, line + Environment.NewLine);
+        
+        outputVolumeMount = "Mounted Successfully - " + line;
+
+    }
+    //catch (Exception ex) { outputVolumeMount = ex.ToString(); }
+    catch (Exception ex) { outputVolumeMount = line; }
+
+    <p><h10>@outputVolumeMount</h10></p>
+*/
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Welcome</h1>
+
+    <h3>This is version 1.0.0</h3>
+
+</div>
