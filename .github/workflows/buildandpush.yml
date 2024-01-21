@@ -31,3 +31,27 @@ jobs:
 
     - name: Login to Azure
       run: az login --service-principal --username ${{ secrets.AZURE_SERVICE_PRINCIPAL }} --password ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
+
+    - name: Get Latest Container Image Tag
+      id: get_tag
+      run: |
+        TAG=$(az acr repository show-tags --name ${{ secrets.AZURE_CONTAINER_REGISTRY }} --repository webapp --orderby time_desc --output tsv --detail | head -n 1 | awk '{print $4}')
+        NUMERIC_TAG=$(echo "$TAG" | grep -oE '[0-9]+')
+        INCREMENTED_TAG=$((NUMERIC_TAG + 1))
+        UPDATED_TAG=$(echo "$TAG" | sed "s/$NUMERIC_TAG/$INCREMENTED_TAG/")
+        echo "::set-output name=image_tag::$UPDATED_TAG"
+
+    - name: Azure Container Registry Build
+      uses: Azure/acr-build@v1
+      with:
+        service_principal: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
+        service_principal_password: ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }}
+        tenant: ${{ secrets.AZURE_TENANT }}
+        registry: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        repository: webapp
+        git_access_token: ${{ secrets.GIT_ACCESS_TOKEN }}
+        image: webapp
+        tag: $image_tag
+          
+
+    
