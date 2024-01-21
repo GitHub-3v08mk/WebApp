@@ -40,6 +40,5 @@ jobs:
         tenant: ${{ secrets.AZURE_TENANT }}
         registry: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
         repository: webapp
-        git_access_token: ${{ secrets.GIT_ACCESS_TOKEN }}
         image: webapp
         tag: 1
