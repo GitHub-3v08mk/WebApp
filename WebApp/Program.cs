@@ -14,26 +14,24 @@ app.UseStaticFiles();
 app.MapRazorPages();
 
 //Add paths for probes
-app.UseEndpoints(endpoints =>
+app.MapGet("/status/liveness", async context =>
 {
-    endpoints.MapGet("/status/liveness", async context =>
-    {
-        context.Response.StatusCode = 200;
-        await context.Response.WriteAsync("Liveness OK");
-    });
-
-    endpoints.MapGet("/status/readiness", async context =>
-    {
-        context.Response.StatusCode = 200;
-        await context.Response.WriteAsync("Readiness OK");
-    });
-
-    endpoints.MapGet("/status/startup", async context =>
-    {
-        context.Response.StatusCode = 200;
-        await context.Response.WriteAsync("Startup OK");
-    });
-
+    context.Response.StatusCode = 200;
+    await context.Response.WriteAsync("Liveness OK");
 });
+
+app.MapGet("/status/readiness", async context =>
+{
+    context.Response.StatusCode = 200;
+    await context.Response.WriteAsync("Readiness OK");
+});
+
+app.MapGet("/status/startup", async context =>
+{
+    context.Response.StatusCode = 200;
+    await context.Response.WriteAsync("Startup OK");
+});
+
+app.MapRazorPages();
 
 app.Run();

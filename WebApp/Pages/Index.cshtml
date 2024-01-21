@@ -7,28 +7,28 @@
 @{
 
     ViewData["Title"] = "Home page";
-/*
+
     //Get Environment Variables
+    string hostingStrategy = Environment.GetEnvironmentVariable("HOSTINGSTRATEGY");
     string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
+/*
+        //Log to Volume
+        String outputVolumeMount = "Default Message";
+        String line = $"{DateTime.Now} - WebApp started successfully in {hostingService}";
+            try
+            {
 
-    //Log to Volume
-    String outputVolumeMount = "Default Message";
-    String line = $"{DateTime.Now} - WebApp started successfully in {hostingService}";
-    try
-    {
+            string filePath = "/data/logs/logfile-webapp.txt";
+            if (!System.IO.File.Exists(filePath)) { using (FileStream fs = System.IO.File.Create(filePath)) { } }
+            System.IO.File.AppendAllText(filePath, line + Environment.NewLine);
 
-        string filePath = "/data/logs/logfile-webapp.txt";
-        if (!System.IO.File.Exists(filePath)) { using (FileStream fs = System.IO.File.Create(filePath)) { } }
-        System.IO.File.AppendAllText(filePath, line + Environment.NewLine);
-        
-        outputVolumeMount = "Mounted Successfully - " + line;
+            outputVolumeMount = "Mounted Successfully - " + line;
 
-    }
-    //catch (Exception ex) { outputVolumeMount = ex.ToString(); }
-    catch (Exception ex) { outputVolumeMount = line; }
-
-    <p><h10>@outputVolumeMount</h10></p>
-*/
+        }
+        //catch (Exception ex) { outputVolumeMount = ex.ToString(); }
+        catch (Exception ex) { outputVolumeMount = line; }
+        <p><h10>@outputVolumeMount</h10></p>
+            */
 }
 
 <div class="text-center">
@@ -36,5 +36,7 @@
     <h1 class="display-4">Welcome</h1>
 
     <h3>This is version 1.0.0</h3>
+    <h3>Running as @hostingStrategy application in @hostingService</h3>
+    <p></p>
 
 </div>
