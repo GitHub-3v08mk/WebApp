@@ -20,7 +20,7 @@ spec:
           image: <azure_container_registry_wildcard>.azurecr.io/webapp:<container_image_tag_wildcard>
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
 
 ---
@@ -38,6 +38,6 @@ spec:
     app: webapp
   ports:
     - name: http
-      port: 80
+      port: 8080
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
