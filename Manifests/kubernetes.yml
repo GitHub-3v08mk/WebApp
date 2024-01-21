@@ -34,7 +34,7 @@ metadata:
     app: webapp
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.2.0.2
+  loadBalancerIP: 10.1.255.1
   selector:
     app: webapp
   ports:
