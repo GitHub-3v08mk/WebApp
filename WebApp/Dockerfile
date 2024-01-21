@@ -11,6 +11,12 @@ RUN dotnet publish -c Release -o out
 
 # Copy to Runtime Image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
+
+# Install curl
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /App
 COPY --from=build /App/out .
 EXPOSE 80
