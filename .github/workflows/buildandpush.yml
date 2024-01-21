@@ -32,13 +32,8 @@ jobs:
     - name: Login to Azure
       run: az login --service-principal --username ${{ secrets.AZURE_SERVICE_PRINCIPAL }} --password ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }} --tenant ${{ secrets.AZURE_TENANT }}
 
-    - name: Azure Container Registry Build
-      uses: Azure/acr-build@v1
-      with:
-        service_principal: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
-        service_principal_password: ${{ secrets.AZURE_SERVICE_PRINCIPAL_PASSWORD }}
-        tenant: ${{ secrets.AZURE_TENANT }}
-        registry: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
-        repository: webapp
-        image: webapp
-        tag: 1
+    - name: Build and Push Image
+      run: |
+        echo "${{ secrets.ACR_PASSWORD }}" | docker login -u "${{ secrets.ACR_USERNAME }}" --password-stdin ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io &&
+        docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/webapp:1 -f Dockerfile . &&
+        docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/webapp:1
