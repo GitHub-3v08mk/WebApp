@@ -34,7 +34,7 @@ jobs:
 
     - name: Build and Push Image
       run: |
-        echo "${{ secrets.ACR_PASSWORD }}" | docker login -u "${{ secrets.ACR_USERNAME }}" --password-stdin crregistry3v08mk.azurecr.io &&
-        docker build -t crregistry3v08mk.azurecr.io/webapp:1 -f Dockerfile . &&
-        docker push crregistry3v08mk.azurecr.io/webapp:1
+        docker login ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io -u ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }} -p ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }} &&
+        docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/webapp:1 -f Dockerfile . &&
+        docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/webapp:1
 
