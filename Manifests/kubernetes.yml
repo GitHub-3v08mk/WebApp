@@ -42,7 +42,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 5
           volumeMounts:
-            - name: azure-fileshare-volume
+            - name: azure-fileshare-volumes
               mountPath: /data
               readOnly: false
           ports:
@@ -50,9 +50,9 @@ spec:
               containerPort: 8080
               protocol: TCP
       volumes:
-        - name: azure-fileshare-volume
+        - name: azure-fileshare-volumes
           persistentVolumeClaim:
-            claimName: azure-fileshare-volume
+            claimName: azure-fileshare-volumes
 
 ---
 
