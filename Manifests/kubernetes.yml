@@ -61,6 +61,9 @@ kind: Service
 metadata:
   name: service-webapp
   namespace: user-workloads
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: rg-spoke-kubernetes
+    service.beta.kubernetes.io/azure-pip-name: kubernetes-publicip-webapp
   labels:
     app: webapp
 spec:
