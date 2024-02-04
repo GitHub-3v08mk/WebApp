@@ -62,7 +62,7 @@ metadata:
   name: service-webapp
   namespace: user-workloads
   annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: rgDemo-KubernetesService-Infra
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: rgDemo-KubernetesService
     service.beta.kubernetes.io/azure-pip-name: kubernetes-publicip-webapp
     service.beta.kubernetes.io/azure-dns-label-name: kubernetes-service-webapp-3v08mk
   labels:
