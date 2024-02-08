@@ -61,10 +61,6 @@ kind: Service
 metadata:
   name: service-webapp
   namespace: user-workloads
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: rgDemo-KubernetesService
-    service.beta.kubernetes.io/azure-pip-name: kubernetes-publicip-webapp
-    service.beta.kubernetes.io/azure-dns-label-name: kubernetes-service-webapp-3v08mk
   labels:
     app: webapp
 spec:
@@ -76,3 +72,25 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-webapp
+  namespace: user-workloads
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+  - host: webapp.arnesazuredemos.northeurope.cloudapp.azure.com
+    http:
+      paths:
+      - path: /aks
+        pathType: Prefix
+        backend:
+          service:
+            name: service-webapp
+            port:
+              number: 8080
