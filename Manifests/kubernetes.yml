@@ -72,25 +72,3 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-webapp
-  namespace: user-workloads
-  annotations:
-    kubernetes.io/ingress.class: azure/application-gateway
-spec:
-  rules:
-  - host: webapp.arnesazuredemos.northeurope.cloudapp.azure.com
-    http:
-      paths:
-      - path: /aks
-        pathType: Prefix
-        backend:
-          service:
-            name: service-webapp
-            port:
-              number: 8080
