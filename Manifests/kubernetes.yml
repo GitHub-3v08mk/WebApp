@@ -66,7 +66,7 @@ metadata:
   labels:
     app: webapp
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: webapp
   ports:
