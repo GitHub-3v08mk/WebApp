@@ -63,10 +63,6 @@ kind: Service
 metadata:
   name: service-webapp
   namespace: user-workloads
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: rgDemo-KubernetesService
-    service.beta.kubernetes.io/azure-pip-name: kubernetes-webapp-publicip
-    service.beta.kubernetes.io/azure-dns-label-name: kubernetes-service-webapp-3v08mk
   labels:
     app: webapp
 spec:
@@ -90,6 +86,7 @@ metadata:
     kubernetes.io/ingress.class: azure/application-gateway
     appgw.ingress.kubernetes.io/backend-path-prefix: "/"
     appgw.ingress.kubernetes.io/appgw-ssl-certificate: certificate-agic
+    appgw.ingress.kubernetes.io/redirect-to-https: "true"
 spec:
   rules:
   - host: arneskubernetesdemo.northeurope.cloudapp.azure.com
