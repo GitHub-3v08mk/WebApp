@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model IndexModel
 @using System;
 @using System.IO;
@@ -6,17 +6,20 @@
 @using Azure.Security.KeyVault.Secrets;
 @{
 
-ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home page";
 
-//Get Environment Variables
-string hostingStrategy = Environment.GetEnvironmentVariable("HOSTINGSTRATEGY");
-string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
+    //Define variables
+    string hostingInstance = "Could not be determined";
+
+    //Get Environment Variables
+    string hostingStrategy = Environment.GetEnvironmentVariable("HOSTINGSTRATEGY");
+    string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
 
     //Log to Volume
     String outputVolumeMount = "Default Message";
     String line = $"{DateTime.Now} - WebApp started successfully in {hostingService}";
-        try
-        {
+    try
+    {
 
         string filePath = "/data/logs/logfile-webapp.txt";
         if (!System.IO.File.Exists(filePath)) { using (FileStream fs = System.IO.File.Create(filePath)) { } }
@@ -28,6 +31,24 @@ string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
     //catch (Exception ex) { outputVolumeMount = ex.ToString(); }
     catch (Exception ex) { outputVolumeMount = line; }
 
+    switch (hostingService)
+    {
+
+        case "":
+
+            string containerName = "emptyName";
+            containerName = Environment.GetEnvironmentVariable("HOSTNAME");
+
+            hostingInstance = "Running in Pod: " + containerName;
+
+            break;
+
+        default:
+
+            break;
+
+    }
+
 }
 
 <div class="text-center">
@@ -35,7 +56,8 @@ string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
     <h1 class="display-4">Welcome</h1>
 
     <h3>This is version 1.0.0</h3>
-    <h10>Running as @hostingStrategy Application in @hostingService</h10>
+    <h10>Hosted as @hostingStrategy application in @hostingService</h10>
+    <h10>@hostingInstance</h10>
     <p></p>
     <p><h10>@outputVolumeMount</h10></p>
 
