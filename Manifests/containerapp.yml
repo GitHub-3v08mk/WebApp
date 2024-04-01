@@ -3,32 +3,35 @@ name: containerapp-webapp
 resourceGroup: Demo-AzureContainerApps
 type: Microsoft.App/containerApps
 properties:
-  managedEnvironmentId: /subscriptions/8daf8b4e-005c-443b-9bd5-2ada95fce462/resourceGroups/Demo-AzureContainerApps/providers/Microsoft.App/managedEnvironments/containerapp-environment
+  managedEnvironmentId: /subscriptions/8daf8b4e-005c-443b-9bd5-2ada95fce462/resourceGroups/rgDemo-ContainerApps/providers/Microsoft.App/managedEnvironments/containerapp-environment
   configuration:
     activeRevisionsMode: Single
     ingress:
       external: true
       allowInsecure: false
-      targetPort: 80
+      targetPort: 8080
       transport: Auto
   template:
+    revisionSuffix: rev-<container_image_tag_wildcard>
     containers:
-      - image: containerregistry3v08mk.azurecr.io/webapp:<container_image_tag_wildcard>
+      - image: acr3v08mk.azurecr.io/webapp:<container_image_tag_wildcard>
         name: containerapp-webapp
         resources:
           cpu: 1.0
           memory: 2Gi
         env:
+          - name: HOSTINGSTRATEGY
+            value: "Containerized"
           - name: HOSTINGSERVICE
             value: "Azure Container Apps"
         volumeMounts:
           - mountPath: /data
-            volumeName: azure-files-volume
+            volumeName: azure-fileshare-volume
         probes:
           - type: liveness
             httpGet:
               path: "/status/liveness"
-              port: 80
+              port: 8080
               httpHeaders:
               - name: "Custom-Header"
                 value: "liveness probe"
@@ -37,7 +40,7 @@ properties:
           - type: readiness
             httpGet:
               path: "/status/readiness"
-              port: 80
+              port: 8080
               httpHeaders:
               - name: "Custom-Header"
                 value: "readiness probe"
@@ -46,7 +49,7 @@ properties:
           - type: startup
             httpGet:
               path: "/status/startup"
-              port: 80
+              port: 8080
               httpHeaders:
               - name: "Custom-Header"
                 value: "startup probe"
@@ -74,6 +77,6 @@ properties:
             type: Utilization
             value: 80
     volumes:
-      - name: azure-files-volume
+      - name: azure-fileshare-volume
         storageType: AzureFile
-        storageName: azure-files-volume
+        storageName: azure-fileshare-volume
