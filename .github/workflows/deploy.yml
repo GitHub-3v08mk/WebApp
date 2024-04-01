@@ -22,6 +22,8 @@ jobs:
         NUMERIC_TAG=$(echo "$TAG" | grep -oE '[0-9]+')
         echo "::set-output name=image_tag::$NUMERIC_TAG"
 
+#Kubernetes Section
+
     - name: Kubernetes YAML File Update
       run: |
         sed -i 's/<container_image_tag_wildcard>/${{ steps.get_tag.outputs.image_tag }}/' Manifests/kubernetes.yml &&
@@ -40,3 +42,17 @@ jobs:
         action: deploy
         manifests: Manifests/kubernetes.yml
         namespace: user-workloads
+
+#Container Apps Section
+
+    - name: Container Apps YAML File Update
+      run: |
+        sed -i 's/<container_image_tag_wildcard>/${{ steps.get_tag.outputs.image_tag }}/' Manifests/kubernetes.yml &&
+        sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/kubernetes.yml &&
+        cat Manifests/containerapp.yml
+
+    - name: Container Apps Deployment
+      uses: Azure/container-apps-deploy-action@v2
+      with:
+        resourceGroup: "rgDemo-ContainerApps"
+        yamlConfigPath: Manifests/containerapps.yml
