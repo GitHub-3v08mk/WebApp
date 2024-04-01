@@ -12,9 +12,9 @@
 
     //Get Environment Variables
     string hostingStrategy = Environment.GetEnvironmentVariable("HOSTINGSTRATEGY");
-    if (hostingStrategy.equals("")) {hostingStrategy = "Application";}
+    if (hostingStrategy == null || hostingStrategy.Equals("")) { hostingStrategy = "Application"; }
     string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
-    if (hostingService.equals("")) {hostingService = "Azure";}
+    if (hostingService == null || hostingService.Equals("")) {hostingService = "Azure";}
 
     //Log to Volume
     String outputVolumeMount = "Default Message";
