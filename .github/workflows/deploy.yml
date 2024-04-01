@@ -44,17 +44,17 @@ jobs:
         namespace: user-workloads
 
 #Container Apps Section
-
-    - name: Container Apps YAML File Update
-      run: |
-        sed -i 's/<container_image_tag_wildcard>/${{ steps.get_tag.outputs.image_tag }}/' Manifests/containerapp.yml &&
-        sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/containerapp.yml &&
-        cat Manifests/containerapp.yml
-
-    - name: Container Apps Deployment
-      uses: Azure/container-apps-deploy-action@v2
-      with:
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        resourceGroup: "rgDemo-ContainerApps"
-        yamlConfigPath: Manifests/containerapp.yml
+#
+#    - name: Container Apps YAML File Update
+#      run: |
+#        sed -i 's/<container_image_tag_wildcard>/${{ steps.get_tag.outputs.image_tag }}/' Manifests/containerapp.yml &&
+#        sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/containerapp.yml &&
+#        cat Manifests/containerapp.yml
+#
+#    - name: Container Apps Deployment
+#      uses: Azure/container-apps-deploy-action@v2
+#      with:
+#        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+#        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+#        resourceGroup: "rgDemo-ContainerApps"
+#        yamlConfigPath: Manifests/containerapp.yml
