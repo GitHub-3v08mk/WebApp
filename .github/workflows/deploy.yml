@@ -55,4 +55,4 @@ jobs:
       uses: Azure/container-apps-deploy-action@v2
       with:
         resourceGroup: "rgDemo-ContainerApps"
-        yamlConfigPath: Manifests/containerapps.yml
+        yamlConfigPath: Manifests/containerapp.yml
