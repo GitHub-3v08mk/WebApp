@@ -9,11 +9,12 @@
     ViewData["Title"] = "Home page";
 
     //Define variables
-    string hostingInstance = "Could not be determined";
 
     //Get Environment Variables
     string hostingStrategy = Environment.GetEnvironmentVariable("HOSTINGSTRATEGY");
+    if (hostingStrategy.equals("")) {hostingStrategy = "Application";}
     string hostingService = Environment.GetEnvironmentVariable("HOSTINGSERVICE");
+    if (hostingService.equals("")) {hostingService = "Azure";}
 
     //Log to Volume
     String outputVolumeMount = "Default Message";
@@ -31,24 +32,6 @@
     //catch (Exception ex) { outputVolumeMount = ex.ToString(); }
     catch (Exception ex) { outputVolumeMount = line; }
 
-    switch (hostingService)
-    {
-
-        case "":
-
-            string containerName = "emptyName";
-            //containerName = Environment.GetEnvironmentVariable("HOSTNAME");
-
-            hostingInstance = "Running in Pod: " + containerName;
-
-            break;
-
-        default:
-
-            break;
-
-    }
-
 }
 
 <div class="text-center">
@@ -57,7 +40,6 @@
 
     <h3>This is version 1.0.0</h3>
     <h10>Hosted as @hostingStrategy application in @hostingService</h10>
-    <h10>@hostingInstance</h10>
     <p></p>
     <p><h10>@outputVolumeMount</h10></p>
 
