@@ -54,13 +54,13 @@ jobs:
         sed -i 's/<azure_container_registry_wildcard>/${{ secrets.AZURE_CONTAINER_REGISTRY }}/' Manifests/containerapp.yml &&
         cat Manifests/containerapp.yml
 
-#    - name: Container Apps Deployment
-#      run: az containerapp create --resource-group "rgDemo-ContainerApps" --name "containerapp-webapp" --yaml Manifests/containerapp.yml
-
     - name: Container Apps Deployment
-      uses: Azure/container-apps-deploy-action@v2
-      with:
-        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
-        resourceGroup: "rgDemo-ContainerApps"
-        yamlConfigPath: Manifests/containerapp.yml
+      run: az containerapp create --resource-group "rgDemo-ContainerApps" --name "containerapp-webapp" --yaml Manifests/containerapp.yml
+
+#    - name: Container Apps Deployment
+#      uses: Azure/container-apps-deploy-action@v2
+#      with:
+#        acrUsername: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
+#        acrPassword: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+#        resourceGroup: "rgDemo-ContainerApps"
+#        yamlConfigPath: Manifests/containerapp.yml
