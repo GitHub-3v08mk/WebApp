@@ -13,7 +13,7 @@ properties:
       transport: Auto
   template:
     containers:
-      - image: acr3v08mk.azurecr.io/webapp:<container_image_tag_wildcard>
+      - image: <azure_container_registry_wildcard>.azurecr.io/webapp:<container_image_tag_wildcard>
         name: containerapp-webapp
         resources:
           cpu: 1.0
