@@ -2,6 +2,10 @@ location: northeurope
 name: containerapp-webapp
 resourceGroup: rgDemo-ContainerApps
 type: Microsoft.App/containerApps
+identity:
+  userAssignedIdentities:
+    "subscriptions/8daf8b4e-005c-443b-9bd5-2ada95fce462/resourceGroups/rgDemo-ContainerApps/providers/Microsoft.ManagedIdentity/userAssignedIdentities/containerapp-identity": {}
+  type: UserAssigned
 properties:
   managedEnvironmentId: /subscriptions/8daf8b4e-005c-443b-9bd5-2ada95fce462/resourceGroups/rgDemo-ContainerApps/providers/Microsoft.App/managedEnvironments/containerapp-environment
   configuration:
